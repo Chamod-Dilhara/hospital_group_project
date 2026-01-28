@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
       });
       _nameController.clear();
       _diseaseController.clear();
-      Navigator.of(context).pop(); // Form එක වහනවා
+      Navigator.of(context).pop(); //
     }
   }
 
