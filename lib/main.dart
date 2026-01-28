@@ -26,7 +26,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // මේක තමයි අපේ තාවකාලික Database එක (List එකක්)
   final List<Map<String, String>> _patients = [];
 
   final TextEditingController _nameController = TextEditingController();
@@ -42,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
       });
       _nameController.clear();
       _diseaseController.clear();
-      Navigator.of(context).pop(); //
+      Navigator.of(context).pop();
     }
   }
 
