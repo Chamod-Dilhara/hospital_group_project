@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'login_screen.dart'; // අපි අලුතෙන් හදපු Login Page එක සම්බන්ධ කරගන්නවා
 
 void main() {
   runApp(const HospitalApp());
@@ -13,10 +14,14 @@ class HospitalApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Hospital Simple',
       theme: ThemeData(primarySwatch: Colors.teal),
-      home: const HomeScreen(),
+      // App එක Run කළාම මුලින්ම පෙන්නන්නේ Login Page එක
+      home: const LoginScreen(),
     );
   }
 }
+
+// --- පහළ තියෙන්නේ ඔයාගේ Main Dashboard එක (Home Screen) ---
+// Login වුනාට පස්සේ එන්නේ මෙතනට.
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -26,7 +31,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // මේක තමයි අපේ තාවකාලික Database එක (List එකක්)
+  // ලෙඩ්ඩුන්ගේ විස්තර තියාගන්න ලිස්ට් එක
   final List<Map<String, String>> _patients = [];
 
   final TextEditingController _nameController = TextEditingController();
@@ -42,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
       });
       _nameController.clear();
       _diseaseController.clear();
-      Navigator.of(context).pop(); // Form එක වහනවා
+      Navigator.of(context).pop();
     }
   }
 
@@ -69,7 +74,20 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Hospital Dashboard"), backgroundColor: Colors.teal),
+      appBar: AppBar(
+        title: const Text("Hospital Dashboard"), 
+        backgroundColor: Colors.teal,
+        // Logout Button එකක් (අමතරව)
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              // ආයේ Login එකට යන්න ඕන නම් විතරක් මේක පාවිච්චි කරන්න
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const LoginScreen()));
+            },
+          )
+        ],
+      ),
       body: _patients.isEmpty
           ? const Center(child: Text("No patients added yet!"))
           : ListView.builder(
