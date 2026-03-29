@@ -35,6 +35,7 @@ class InputScreen extends StatefulWidget {
   State<InputScreen> createState() => _InputScreenState();
 }
 
+modern-ui-update
 class _InputScreenState extends State<InputScreen> {
   final _nameController = TextEditingController();
   final _diseaseController = TextEditingController();
@@ -52,6 +53,10 @@ class _InputScreenState extends State<InputScreen> {
       return;
     }
 
+class _HomeScreenState extends State<HomeScreen> {
+  final List<Map<String, String>> _patients = [];
+ main
+
     setState(() => _isLoading = true);
 
     try {
@@ -59,6 +64,7 @@ class _InputScreenState extends State<InputScreen> {
         'name': _nameController.text,
         'disease': _diseaseController.text,
       });
+ modern-ui-update
 
       if (mounted) {
         Navigator.push(
@@ -86,6 +92,11 @@ class _InputScreenState extends State<InputScreen> {
       }
     } finally {
       if (mounted) setState(() => _isLoading = false);
+
+      _nameController.clear();
+      _diseaseController.clear();
+      Navigator.of(context).pop();
+ main
     }
   }
 
