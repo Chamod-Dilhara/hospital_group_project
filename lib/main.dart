@@ -6,8 +6,8 @@ import 'result_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Supabase.initialize(
-    url: 'YOUR_SUPABASE_URL', // <-- මෙතන URL එක දාන්න
-    anonKey: 'YOUR_SUPABASE_ANON_KEY', // <-- මෙතන Key එක දාන්න
+    url: 'https://rwkztmxxwcbtcontzdpn.supabase.co',
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3a3p0bXh4d2NidGNvbnR6ZHBuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ0MjYyNzUsImV4cCI6MjA5MDAwMjI3NX0.MX1hbFUPc0Uoh7xkswOt7vZTkpueAGKGyN6DToJqfnI',
   );
   runApp(const MyApp());
 }
@@ -43,17 +43,23 @@ class _InputScreenState extends State<InputScreen> {
 
   Future<void> _submitData() async {
     if (_nameController.text.isEmpty || _diseaseController.text.isEmpty || _ageController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please fill all details'), backgroundColor: Colors.redAccent));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please fill all details'), backgroundColor: Colors.redAccent),
+      );
       return;
     }
 
     setState(() => _isLoading = true);
 
+    final enteredName = _nameController.text;
+    final enteredAge = _ageController.text;
+    final enteredDisease = _diseaseController.text;
+
     try {
       await Supabase.instance.client.from('patients').insert({
-        'name': _nameController.text,
-        'age': _ageController.text, // වයසත් යවනවා
-        'disease': _diseaseController.text,
+        'name': enteredName,
+        'age': enteredAge,
+        'disease': enteredDisease,
       });
 
       if (mounted) {
@@ -61,9 +67,9 @@ class _InputScreenState extends State<InputScreen> {
           context,
           MaterialPageRoute(
             builder: (context) => ResultScreen(
-              name: _nameController.text,
-              disease: _diseaseController.text,
-              age: _ageController.text,
+              name: enteredName,
+              disease: enteredDisease,
+              age: enteredAge,
             ),
           ),
         );
@@ -72,7 +78,11 @@ class _InputScreenState extends State<InputScreen> {
         _ageController.clear();
       }
     } catch (e) {
-      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString()), backgroundColor: Colors.redAccent));
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.toString()), backgroundColor: Colors.redAccent),
+        );
+      }
     } finally {
       if (mounted) setState(() => _isLoading = false);
     }
