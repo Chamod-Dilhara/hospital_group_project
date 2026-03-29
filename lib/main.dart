@@ -42,15 +42,8 @@ class _InputScreenState extends State<InputScreen> {
   bool _isLoading = false;
 
   Future<void> _submitData() async {
-    if (_nameController.text.isEmpty ||
-        _diseaseController.text.isEmpty ||
-        _ageController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please fill all details'),
-          backgroundColor: Colors.redAccent,
-        ),
-      );
+    if (_nameController.text.isEmpty || _diseaseController.text.isEmpty || _ageController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please fill all details'), backgroundColor: Colors.redAccent));
       return;
     }
 
@@ -79,13 +72,7 @@ class _InputScreenState extends State<InputScreen> {
         _ageController.clear();
       }
     } catch (e) {
-      if (mounted)
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(e.toString()),
-            backgroundColor: Colors.redAccent,
-          ),
-        );
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString()), backgroundColor: Colors.redAccent));
     } finally {
       if (mounted) setState(() => _isLoading = false);
     }
@@ -102,18 +89,11 @@ class _InputScreenState extends State<InputScreen> {
               width: double.infinity,
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [
-                    Color(0xFF0F2027),
-                    Color(0xFF203A43),
-                    Color(0xFF2C5364),
-                  ],
+                  colors: [Color(0xFF0F2027), Color(0xFF203A43), Color(0xFF2C5364)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(50),
-                  bottomRight: Radius.circular(50),
-                ),
+                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50), bottomRight: Radius.circular(50)),
               ),
               child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -121,18 +101,8 @@ class _InputScreenState extends State<InputScreen> {
                   SizedBox(height: 40),
                   Icon(Icons.health_and_safety, size: 80, color: Colors.white),
                   SizedBox(height: 10),
-                  Text(
-                    'MediCare Plus',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  Text(
-                    'Enter Patient Details',
-                    style: TextStyle(fontSize: 16, color: Colors.white70),
-                  ),
+                  Text('MediCare Plus', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white)),
+                  Text('Enter Patient Details', style: TextStyle(fontSize: 16, color: Colors.white70)),
                 ],
               ),
             ),
@@ -143,34 +113,15 @@ class _InputScreenState extends State<InputScreen> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
-                      blurRadius: 20,
-                      offset: const Offset(0, 10),
-                    ),
-                  ],
+                  boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 20, offset: const Offset(0, 10))],
                 ),
                 child: Column(
                   children: [
-                    _buildTextField(
-                      _nameController,
-                      'Patient Name',
-                      Icons.person_outline,
-                    ),
+                    _buildTextField(_nameController, 'Patient Name', Icons.person_outline),
                     const SizedBox(height: 20),
-                    _buildTextField(
-                      _ageController,
-                      'Age',
-                      Icons.calendar_today_outlined,
-                      isNumber: true,
-                    ),
+                    _buildTextField(_ageController, 'Age', Icons.calendar_today_outlined, isNumber: true),
                     const SizedBox(height: 20),
-                    _buildTextField(
-                      _diseaseController,
-                      'Disease / Condition',
-                      Icons.medical_services_outlined,
-                    ),
+                    _buildTextField(_diseaseController, 'Disease / Condition', Icons.medical_services_outlined),
                     const SizedBox(height: 30),
                     SizedBox(
                       width: double.infinity,
@@ -179,23 +130,12 @@ class _InputScreenState extends State<InputScreen> {
                         onPressed: _isLoading ? null : _submitData,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF203A43),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                           elevation: 5,
                         ),
                         child: _isLoading
-                            ? const CircularProgressIndicator(
-                                color: Colors.white,
-                              )
-                            : const Text(
-                                'Submit Record',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
+                            ? const CircularProgressIndicator(color: Colors.white)
+                            : const Text('Submit Record', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
                       ),
                     ),
                   ],
@@ -208,12 +148,7 @@ class _InputScreenState extends State<InputScreen> {
     );
   }
 
-  Widget _buildTextField(
-    TextEditingController controller,
-    String label,
-    IconData icon, {
-    bool isNumber = false,
-  }) {
+  Widget _buildTextField(TextEditingController controller, String label, IconData icon, {bool isNumber = false}) {
     return TextField(
       controller: controller,
       keyboardType: isNumber ? TextInputType.number : TextInputType.text,
@@ -222,14 +157,8 @@ class _InputScreenState extends State<InputScreen> {
         prefixIcon: Icon(icon, color: const Color(0xFF203A43)),
         filled: true,
         fillColor: const Color(0xFFF3F4F6),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide.none,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-          borderSide: const BorderSide(color: Color(0xFF203A43), width: 2),
-        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15), borderSide: BorderSide.none),
+        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(15), borderSide: const BorderSide(color: Color(0xFF203A43), width: 2)),
       ),
     );
   }
